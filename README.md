@@ -4,8 +4,8 @@ Android app which uses an image (camera/gallery) to find similar products on the
 ## Steps to use:
 
  - Starting backend:
-  - python image-search-backend/src/server.py
-  - cd "imgur-upload"; npm install; npm start
+   - python image-search-backend/src/server.py
+   - cd "imgur-upload"; npm install; npm start
  - Update the Server Address in android code and build.
 
 ## Opensource Projects used:
