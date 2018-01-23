@@ -36,6 +36,8 @@
         android:layout_height="0dp"/>
     <Button
         android:id="@+id/pick_image_button"
+        android:backgroundTint="#21a7ab"
+        android:textColor="#fff"
         android:text="Search for a product"
         android:layout_below="@+id/centered_view"
         android:layout_centerHorizontal="true"
