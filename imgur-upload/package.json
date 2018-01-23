@@ -12,6 +12,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "google": "^2.1.0",
-    "imgur": "latest"
+    "imgur": "latest",
+    "request": "^2.83.0"
   }
 }
