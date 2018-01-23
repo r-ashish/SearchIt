@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Base64;
@@ -16,6 +18,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +28,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -160,13 +167,14 @@ public class SearchResultActivity extends AppCompatActivity {
     }
 
     private void updateUI(String response){
-        JSONObject data = new JSONObject();
+        JSONObject data;
         try{
             data = new JSONObject(response);
             JSONObject basicInfo = data.getJSONObject("basic_info");
-            JSONArray purchaseInfo = data.getJSONArray("purchase_info");
+            final JSONArray purchaseInfo = data.getJSONArray("purchase_info");
             final String bestGuess = basicInfo.getString("best_guess");
             final String des = basicInfo.getJSONArray("descriptions").getString(0);
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -174,16 +182,34 @@ public class SearchResultActivity extends AppCompatActivity {
                     title.setText(capitalizeString(bestGuess));
                     description.setText(des);
                     description.setMovementMethod(new ScrollingMovementMethod());
+                    //            if(des.isEmpty())
+//                description.setText("Description not available");
                     displayImage.setImageBitmap(image);
                     gifView.setImageResource(0);
                     dataLayout.setVisibility(View.VISIBLE);
+                    setRecyclerViewData(purchaseInfo);
                 }
             });
-//            if(des.isEmpty())
-//                description.setText("Description not available");
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void setRecyclerViewData(JSONArray purchaseInfo){
+        List<SearchResult> searchResults = new ArrayList<>();
+        Gson gson = new Gson();
+        try{
+            for(int i = 0; i < purchaseInfo.length(); i++){
+                searchResults.add(gson.fromJson(purchaseInfo.getJSONObject(i).toString(), SearchResult.class));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        SearchResultsAdapter mAdapter = new SearchResultsAdapter(this, searchResults);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        relatedLinksRecyclerView.setLayoutManager(mLayoutManager);
+        relatedLinksRecyclerView.setAdapter(mAdapter);
     }
 
     public static String capitalizeString(String string) {
