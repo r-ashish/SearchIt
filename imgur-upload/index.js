@@ -8,12 +8,8 @@ app.use(bodyParser.json());
 var port = process.env.PORT || 7070;
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    res.json({ message: 'hooray! welcome to our api!' });   
-});
-
-router.get('/imgurupload/', function(req, res) {
-    uploadToImgur(req.param('b64File'), res);
+router.post('/imgurupload/', function(req, res) {
+    uploadToImgur(req.body.b64File, res);
 });
 
 app.use('/api', router);
@@ -22,10 +18,10 @@ console.log('Server started on port: ' + port);
 
 
 function uploadToImgur(file, res){
-    imgur.uploadBase64(imgurFavicon)
+    imgur.uploadBase64(file)
     .then(function (json) {
         console.log(json.data.link);
-        res.send({link: json.data.link});
+        res.json({link: json.data.link});
     })
     .catch(function (err) {
         console.error(err.message);
