@@ -1,4 +1,4 @@
-package com.cfd.asmi;
+package com.cfd.searchit;
 
 /**
  * Created by rashish on 23/01/18.

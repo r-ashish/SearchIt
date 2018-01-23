@@ -1,4 +1,4 @@
-package com.cfd.asmi;
+package com.cfd.searchit;
 
 import org.junit.Test;
 

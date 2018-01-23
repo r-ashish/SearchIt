@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context="com.cfd.asmi.SearchResultActivity">
+    tools:context="com.cfd.searchit.SearchResultActivity">
     <LinearLayout
         android:id="@+id/loading_layout"
         android:gravity="center"

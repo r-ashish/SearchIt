@@ -1,4 +1,4 @@
-package com.cfd.asmi;
+package com.cfd.searchit;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

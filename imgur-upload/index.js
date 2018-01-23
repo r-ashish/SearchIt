@@ -29,7 +29,6 @@ app.listen(port);
 console.log('Server started on port: ' + port);
 
 function uploadToImgur(file, res){
-    console.log('received req');
     imgur.uploadBase64(file)
     .then(function (json) {
         console.log(json.data.link);

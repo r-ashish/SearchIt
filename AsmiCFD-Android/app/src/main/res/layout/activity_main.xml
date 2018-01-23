@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cfd.asmi.MainActivity">
+    tools:context="com.cfd.searchit.MainActivity">
     <ImageView
         android:src="@drawable/ic_search"
         android:layout_width="wrap_content"
