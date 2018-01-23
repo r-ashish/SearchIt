@@ -56,29 +56,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == UCrop.REQUEST_CROP) {
-            handleCropResult(data);
-        }else {
-            EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
-                @Override
-                public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                    //Some error handling
-                }
+        if (resultCode == UCrop.RESULT_ERROR) {
+//            handleCropError(data);
+            return;
+        }
+        if (resultCode == RESULT_OK) {
+            if (requestCode == UCrop.REQUEST_CROP) {
+                handleCropResult(data);
+            }else {
+                EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
+                    @Override
+                    public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                        //Some error handling
+                    }
 
-                @Override
-                public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                    //Handle the images
-                    cropImage(Uri.fromFile(imageFile));
-                    Log.d("image picked", imageFile.getAbsolutePath());
-                }
-            });
+                    @Override
+                    public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                        //Handle the images
+                        cropImage(Uri.fromFile(imageFile));
+                        Log.d("image picked", imageFile.getAbsolutePath());
+                    }
+                });
+            }
         }
     }
 
     private void cropImage(Uri uri){
         UCrop.Options options = new UCrop.Options();
         options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
-        options.setCompressionQuality(80);
+        options.setCompressionQuality(60);
         options.setFreeStyleCropEnabled(true);
 //        options.setHideBottomControls(true);
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), "croopedimage.jpg")));

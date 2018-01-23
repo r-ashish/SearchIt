@@ -3,8 +3,8 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({limit: '25mb', extended: true }));
+app.use(bodyParser.json({limit: '25mb'}));
 
 var google = require('google')
 google.resultsPerPage = 5
@@ -29,6 +29,7 @@ app.listen(port);
 console.log('Server started on port: ' + port);
 
 function uploadToImgur(file, res){
+    console.log('received req');
     imgur.uploadBase64(file)
     .then(function (json) {
         console.log(json.data.link);
