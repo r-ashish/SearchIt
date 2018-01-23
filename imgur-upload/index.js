@@ -5,11 +5,18 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 7070;
+var google = require('google')
+google.resultsPerPage = 5
+
+var port = 7070;
 var router = express.Router();
 
 router.post('/imgurupload/', function(req, res) {
     uploadToImgur(req.body.b64File, res);
+});
+
+router.get('/google/', function(req, res) {
+    googleSearch(req.query.q, res);
 });
 
 app.use('/api', router);
@@ -27,4 +34,15 @@ function uploadToImgur(file, res){
         console.error(err.message);
         res.send(err);
     });
+}
+
+function googleSearch(q, r){
+    var nextCounter = 0
+    google(q, function (err, res){
+        if (err){
+            console.error(err);
+            r.send(err);
+        }
+        r.send(res.links);
+    })
 }
