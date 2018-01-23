@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AsmiCFD</string>
+    <string name="searching">Looking for your image\n on the web..</string>
+    <string name="uploading">Uploading your image\n please wait..</string>
 </resources>

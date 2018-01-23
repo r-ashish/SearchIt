@@ -51,6 +51,10 @@ function identifyImage(imgUrl, res){
     request(options, function (error, response, body) {
         if(error) res.error(error);
         // res.send(body);
+        if(!body.best_guess || body.best_guess==''){
+            res.send({basic_info:body, purchase_info:[]});
+            return;
+        }
         googleSearch(body.best_guess+ " online buy", res, {basic_info:body});
     });
 }
