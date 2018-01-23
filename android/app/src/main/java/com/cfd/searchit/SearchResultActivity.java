@@ -93,7 +93,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         RequestBody body = RequestBody.create(JSON, data.toString());
         Request request = new Request.Builder()
-                .url("http://192.168.0.106:7070/api/imgurupload")
+                .url("http://c0ca525b.ngrok.io/api/imgurupload")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -124,7 +124,7 @@ public class SearchResultActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Request request = new Request.Builder()
-                .url("http://192.168.0.106:7070/api/imageinfo?url="+data.optString("link"))
+                .url("http://c0ca525b.ngrok.io/api/imageinfo?url="+data.optString("link"))
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
