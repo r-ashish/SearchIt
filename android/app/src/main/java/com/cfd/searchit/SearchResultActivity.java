@@ -49,6 +49,7 @@ public class SearchResultActivity extends AppCompatActivity {
     TextView title, description, loadingMsg;
     LinearLayout loadingLayout, dataLayout;
     Bitmap image;
+    private final String SERVER_BASE_URL = "http://ec2-52-66-83-204.ap-south-1.compute.amazonaws.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,7 +94,7 @@ public class SearchResultActivity extends AppCompatActivity {
         }
         RequestBody body = RequestBody.create(JSON, data.toString());
         Request request = new Request.Builder()
-                .url("http://c0ca525b.ngrok.io/api/imgurupload")
+                .url(SERVER_BASE_URL+"/api/imgurupload")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -124,7 +125,7 @@ public class SearchResultActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Request request = new Request.Builder()
-                .url("http://c0ca525b.ngrok.io/api/imageinfo?url="+data.optString("link"))
+                .url(SERVER_BASE_URL+"/api/imageinfo?url="+data.optString("link"))
                 .build();
         client.newCall(request).enqueue(new Callback() {
             @Override
